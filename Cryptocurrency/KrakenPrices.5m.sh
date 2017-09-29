@@ -13,5 +13,5 @@ xrpIconBase64='iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhB
 
 xmrLast=$(curl -s "https://api.kraken.com/0/public/Ticker?pair=xmrusd" | tr -d '{}"[]' | tr ':,' '\n' | grep -A1 "^c$" | tail -1)
 xrpLast=$(curl -s "https://api.kraken.com/0/public/Ticker?pair=xrpusd" | tr -d '{}"[]' | tr ':,' '\n' | grep -A1 "^c$" | tail -1)
-printf "$%.*f | image=%s\n" 2 "$xmrLast" "$moneroIconBase64"
-printf "$%.*f | image=%s\n" 2 "$xrpLast" "$xrpIconBase64"
+printf "$%.*f | image=%s\n" 3 "$xmrLast" "$moneroIconBase64"
+printf "$%.*f | image=%s\n" 4 "$xrpLast" "$xrpIconBase64"
