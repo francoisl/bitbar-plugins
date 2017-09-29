@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# <bitbar.title>Kraken Prices</bitbar.title>
+# <bitbar.version>v1.0</bitbar.version>
+# <bitbar.author>FL</bitbar.author>
+# <bitbar.author.github>monerohow</bitbar.author.github>
+# <bitbar.desc>Shows the last XMR and XRP prices (in USD) on the Kraken exchange</bitbar.desc>
+#
+# Based on Kraken Monero plugin https://github.com/matryer/bitbar-plugins/blob/master/Cryptocurrency/Monero/monero-usd-kraken.30s.sh
+
+moneroIconBase64='iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACtElEQVR4nE2Tz2udRRSGn3Nm7v2aLzeWFouBtCm6cFFwIXRTRVOjNbfEH0TIP9CKdtMWWlxYqNeqkC4KCt1o/dLiOiC6kbTYhWYT8C9Qd4VWBKNok/vd3Myc4+K7LZnVC3Oed87Me0YAHETAAfqneTEG3lNhRpwpABceGPycMjfKirXdjDwSv3Upnp7mmipnNBDJgNEsBQJYJpvz9R9/c2F6hdpBxBcJv08Sn9nmhzDGLH0cwUaYjCwcMBylRHLN2oN/mDsEQ5UV8uEtPg8Fs9SA4M15j2FGOiA4NYSClyaf4LqskGXrFEfLkl/ygJ+Ss1qMs8SAtNvEG5HYQ6z7XI7wcqvkRL3JC9oSzhJxhPaeZa4O+3xCQQTyiG3ggpj6LJUVn7nTJuBROaciHCc3LXoPLSp6g1o+3WWSKIiDWq62Ki55D1UhkBCBGVVh8tFryxXMFwljlX80rKXppIGXxir/0BcJcmVUbRCFA1EFw0nZBXDe2Hz91Dtzdq+ofuxtnZaOCLGs/NLCyVdm39xsPwu3v0wuRPeEYJqMLcaJLuxvMg9TXk58+1b31efHl/1iWfn5t0++9pwXe78X9PAolX2ME7MziMn5wGqO1EnugwvGwxBCmVrl7YX5E7M56Y7F9p0ixs5wOPgXkNrlK6192oxf49gyt5q0mqtld0kpuYgcGNK+S8SCyGRKya0p8f037XrDOOKLhIXNufPSLs5s76S/ROSQqh40M1NVFRFyzqaqmnO+D9wrWvFJS4Pl78o71/TjIz1/OEzf7GT7b2Ji4lgI4aCZZRERd3czMxERM8shhKlOp3NsJ1t/O+tNWcFlNG3e7XaLEMIXIYR3VTXmnHH3Jl4RQgjknLOZ3drY2Di3vr5e03zEx7PuAPPz88dF5H1gBnhqtP8nsJZSurG6unp3N/M/llI6HEcL354AAAAASUVORK5CYII='
+xrpIconBase64='iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAAsTAAALEwEAmpwYAAABWWlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS40LjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyI+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgpMwidZAAACvklEQVQ4EX1TzUtVQRQ/Z+59XyoamiUaRAuD3NiiRUKEhtsQNDQsCFciQfUf9MiVq9Ii2lTUokwpECKipJIEo0UbW1X0oVQ+9OV7+t79nnM6c5UM+jhwL2fm/OY3M7/zG4T/RTarIJslyD6vSmnvIvnuCQ4D5EhPaYVnYbQ/h/9ez1JDNvXUhSf3IZHp5vx3oDBiTlQglApzumH34S2CLCuAF/KZmCFoaUHo7dWZkdmD7Dtz5DrEUQgcyheExGjZFARH7Rg/wRb0opac4rH5jb1PyV8j6B1sGRiD7KY4PpPgTEJhky13VGZx3cRiUxD4nRj4mkP78fpg84rhIQXzoMNltBL1FEWBYZFIAst+KvkmHm57sNTFjnNdWOs4ioCc0qJW1jF3aP9rg84MT18hwNNcXhcIAkUaJB+la6fOYe2j/C5eL79lUDW09iPiMAKwU7aQLMuxO8sZ+0M6l3/IBB3klp9BpD+Tpml9qe+uIbfRC45wMl3DxXwIStmgENgrCQvXi1hzGdcpcKqqEcvFe+FI93GzaCsYleZNWczshkBbdYQ1mTPimtpmh7bKJsPtU8uNkefOA1q1VMxHRgPpuU3rxUVKp9vSKio5SyszQNhKnjMLYbggYk7rsf6bhkCtdNV/Q5U4yYGXw1SFjamMDb77iZOpHhHx6+rggSKCegeWBYh4COxkPyTSN9TQ7avxCeI2il0r73zcaUXUIeyRsEwXBvYUDCA5MrcPvbVXEPjV5PuhmIk5CJJxN4DajA8IxEjlXswJftwsisMY6Uyzb3O4l6xENZFDiJCIFUOUe4rgvte64UTjwt+tfL5dw+SkgEQ7BHkAJkXzMMQOZtJUjC/thQ1fmfGf8QuaHn46zna6j/NL4l65QvyYVl/qhi/tf23NJhfH+sjAq6wcALd0mS2rJF7xIHBu6QT3mOv/BB5FetBXemtFAAAAAElFTkSuQmCC'
+
+xmrLast=$(curl -s "https://api.kraken.com/0/public/Ticker?pair=xmrusd" | tr -d '{}"[]' | tr ':,' '\n' | grep -A1 "^c$" | tail -1)
+xrpLast=$(curl -s "https://api.kraken.com/0/public/Ticker?pair=xrpusd" | tr -d '{}"[]' | tr ':,' '\n' | grep -A1 "^c$" | tail -1)
+printf "$%.*f | image=%s\n" 2 "$xmrLast" "$moneroIconBase64"
+printf "$%.*f | image=%s\n" 2 "$xrpLast" "$xrpIconBase64"
