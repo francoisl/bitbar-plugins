@@ -20,7 +20,7 @@ xrpLast=$(curl -s "https://api.kraken.com/0/public/Ticker?pair=xrpusd" | tr -d '
 btcLast=$(curl -s "https://api.coinbase.com/v2/prices/BTC-USD/spot" -H "CB-VERSION: 2017-04-16" | egrep -o '"amount":"[0-9]+(\.)?' | sed 's/"amount"://'  | sed 's:^.\(.*\).$:\1:')
 ltcLast=$(curl -s "https://api.coinbase.com/v2/prices/LTC-USD/spot" -H "CB-VERSION: 2017-04-16" | egrep -o '"amount":"[0-9]+(\.)?' | sed 's/"amount"://'  | sed 's:^.\(.*\).$:\1:')
 ethLast=$(curl -s "https://api.coinbase.com/v2/prices/ETH-USD/spot" -H "CB-VERSION: 2017-04-16" | egrep -o '"amount":"[0-9]+(\.)?' | sed 's/"amount"://'  | sed 's:^.\(.*\).$:\1:')
-xlmLast=$(curl -s "https://api.coinmarketcap.com/v1/ticker/stellar/" | fgrep price_btc | sed 's/.*": "//' | sed 's/",//')
+xlmLast=$(curl -s "https://api.coinmarketcap.com/v1/ticker/stellar/" | fgrep price_usd | sed 's/.*": "//' | sed 's/",//')
 
 printf "$%.*f | image=%s\n" 2 "$xmrLast" "$moneroIconBase64"
 printf "$%.*f | image=%s\n" 4 "$xrpLast" "$xrpIconBase64"
